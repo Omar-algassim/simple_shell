@@ -30,16 +30,12 @@ char *_strdup(const char *str)
  * Return: Always 0 (Success)
  */
 
-char *_strchr(char *s, char c)
+char *_strchr(const char *s, int c)
 {
-	int i = 0;
-
-	for (; s[i] >= '\0'; i++)
-	{
-		if (s[i] == c)
-			return (&s[i]);
-	}
-	return (0);
+	while (*s != (char)c)
+		if (!*s++)
+			return (0);
+	return ((char *)s);
 }
 
 /**
