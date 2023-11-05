@@ -6,14 +6,25 @@
  * Return: 1 if success -1 if fail
  */
 
-int execute(char *cmd)
+int execute(char **path_cmd, char **arg)
 {
 	pid_t pid;
 	int acc, exe;
 	int status;
-	char *const arg[] = {cmd, NULL};
-	
-	acc = access(cmd, X_OK);
+	char *cmd;
+	int i = 0;
+
+	while (path_cmd[i] != NULL)
+	{
+		acc = access(path_cmd[i], X_OK);
+		if (acc == 0)
+		{
+			cmd = malloc(_strlen(path_cmd[i]) + 1);
+			cmd = path_cmd[i];
+		}
+			i++;
+	}
+	acc = access(cmd, F_OK);
 	if (acc == -1)
 		{
 			perror("bash");

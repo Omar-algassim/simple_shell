@@ -34,26 +34,36 @@ int main()
 		if (line != NULL && line != "\n")
 		{
 			arg = token_it(line, " ");
+		if (arg[0][0] != '/')
+		{
 			cmd_path = path(arg);
 		if (arg != NULL && cmd_path != NULL)
 		{
+			execute(cmd_path, arg);
 		while (cmd_path[j] != NULL)
 		{
-			printf("%s\n", cmd_path[j]);
 			free(cmd_path[j]);
 			j++;
 		}
+		j = 0;
 		while (arg[j] != NULL)
 		{
-			//free(arg[j]);
+			free(arg[j]);
 			j++;
 		}
 		
 		free(arg);
-		//free(cmd_path);
+		free(cmd_path);
 		}
+		}
+		else
+		{
+		for(j = 0; arg[j] != NULL; j++)
+			free(arg[j]);
+		free(arg);
 		}
 	}
+	}
 	return(0);
-}
 
+}

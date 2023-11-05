@@ -11,8 +11,10 @@
 #include <errno.h>
 /*prototype*/
 
+int execute(char **path_cmd, char **arg);
+char **path(char **tok_line);
+char **token_it(char *str, char *del);
 char *get_line();
-int execute(char *cmd);
 char *_getenv(char *env_var);
 void _env(void);
 int _strlen(char *s);
