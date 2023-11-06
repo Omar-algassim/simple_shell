@@ -6,28 +6,31 @@
  * Return: 1 if success -1 if fail
  */
 
-int execute(char **path_cmd, char **arg)
+int execute(char **path_cmd, char **arg, char **env)
 {
 	pid_t pid;
 	int acc, exe;
 	int status;
-	char *cmd;
+	char *cmd = NULL;
 	int i = 0;
 
 	while (path_cmd[i] != NULL)
 	{
-		acc = access(path_cmd[i], X_OK);
+		acc = access(path_cmd[i], F_OK);
 		if (acc == 0)
 		{
-			cmd = malloc(_strlen(path_cmd[i]) + 1);
-			cmd = path_cmd[i];
+		//	cmd = malloc(_strlen(path_cmd[i]) + 1);
+			cmd = strdup(path_cmd[i]);
 		}
+
 			i++;
 	}
-	acc = access(cmd, F_OK);
+	free_tok(path_cmd);
+	if (cmd != NULL)
+		acc = access(cmd, X_OK);
 	if (acc == -1)
 		{
-			perror("bash");
+			perror(cmd);
 		}
 	if (acc == 0)
 		{
@@ -37,15 +40,17 @@ int execute(char **path_cmd, char **arg)
 
 			if (pid == 0)
 			{
-				exe = execve(cmd, arg, NULL);
+				exe = execve(cmd, arg, env);
 				if (exe == -1)
 				{
 					perror("bash");
-				exit(EXIT_FAILURE);
+					free(cmd);
+					exit(EXIT_FAILURE);
 				}
 			}
 		
-		waitpid(pid, &status, 0);	
+		waitpid(pid, &status, 0);
 		}
+	free(cmd);
 	return (0);
 }

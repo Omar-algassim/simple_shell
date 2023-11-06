@@ -48,6 +48,5 @@ char **path(char **tok_line)
 	free(all_path);
 	return (tok_path);
 	}
-return (tok_line);
 }
 

@@ -12,7 +12,7 @@ char **token_it(char *str, char *del)
 	char **token = NULL;
 	char *tok = NULL;
 	int j, i = 0;
-	char *cpy = strdup(str);
+	char *cpy = _strdup(str);
 
 	if (str == NULL || del == NULL)
 	{
@@ -29,15 +29,12 @@ char **token_it(char *str, char *del)
 			free(cpy);
 			return (NULL);
 		}
-		token[i] = strdup(tok);
+		token[i] = _strdup(tok);
 		if (token[i] == NULL)
 		{
 			perror("strdup");
 			free(cpy);
-			for (j = 0; j < i; j++)
-				free(token[j]);
-				
-			free(token);
+			free_tok(token);
 			return (NULL);
 		}
 		tok = strtok(NULL, del);
@@ -51,6 +48,7 @@ char **token_it(char *str, char *del)
 		return (NULL);
 	}
 	token[i] = NULL;
+	free(tok);
 	free(cpy);
 	return (token);
 }

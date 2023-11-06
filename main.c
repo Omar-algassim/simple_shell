@@ -2,68 +2,55 @@
 
 /**
  * main - get line command from stdin and tokine it
- *
- * Return: the command line
+ *@argc: the number of arg
+ *@arg: the args pass to execute
+ *@env: the system envirument
+ * Return: always 0
  */
 
-int main()
+int main(int argc, char **arg, char **env)
 {
-	char *line = NULL;
-	size_t len = 1024;
-	int j, i = 0, getcheck, execheck;
-	char **arg = NULL;
-	char **cmd_path = NULL;
+	char **cmd_path = NULL, *line = NULL;
+	size_t line_length, getcheck, len = 0;
+	int i = 0;
+
 	while (1)
 	{
-		j = 0;
-		write(1, "$ ", 2);
-
+		write(STDOUT_FILENO, "$ ", 2);
 		getcheck = getline(&line, &len, stdin);
-		if (getcheck == -1)
+		if (getcheck == -1 || _strcmp(line, "exit\n") == 0)
 		{
+			write(STDOUT_FILENO, "exit\n", 5);
 			free(line);
-			exit(EXIT_FAILURE);
+			exit(EXIT_SUCCESS);
 		}
-		else
-		while (line[i] != '\0')
+		else if (_strcmp(line, "env\n") == 0)
+			_env(env);
+		else if (line != NULL)
 		{
-			if(line[i] == '\n')
-				line[i] = '\0';
-			i++;
-		}
-		if (line != NULL && line != "\n")
-		{
-			arg = token_it(line, " ");
-		if (arg[0][0] != '/')
-		{
-			cmd_path = path(arg);
-		if (arg != NULL && cmd_path != NULL)
-		{
-			execute(cmd_path, arg);
-		while (cmd_path[j] != NULL)
-		{
-			free(cmd_path[j]);
-			j++;
-		}
-		j = 0;
-		while (arg[j] != NULL)
-		{
-			free(arg[j]);
-			j++;
-		}
-		
-		free(arg);
-		free(cmd_path);
-		}
-		}
-		else
-		{
-		for(j = 0; arg[j] != NULL; j++)
-			free(arg[j]);
-		free(arg);
+			line_length = _strlen(line);
+			if (line_length > 0 && line[line_length - 1] == '\n')
+				line[line_length - 1] = '\0';
+				arg = token_it(line, " ");
+				if (arg != NULL && arg[0] != NULL)
+				{
+					if (arg[0][0] != '/')
+					{
+						cmd_path = path(arg);
+						if (cmd_path != NULL && cmd_path[0] != NULL)
+						{
+							execute(cmd_path, arg, env);
+							//free_tok(cmd_path);
+							//free(line);
+						}
+					}
+					else
+						execute(arg, arg, env);
+				}
+			free_tok(arg);
+				
 		}
 	}
-	}
-	return(0);
-
+	free(line);
+	return (0);
 }
