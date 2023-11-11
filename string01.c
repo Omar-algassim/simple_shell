@@ -91,7 +91,7 @@ char *_strcat(char *dest, char *src)
 
 	while (dest[lengthD] != '\0')
 		lengthD++;
-	
+
 	while (*(src + lengthS) != '\0' && lengthD < 97)
 	{
 		*(dest + lengthD) = *(src + lengthS);

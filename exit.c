@@ -1,18 +1,31 @@
 #include "shell.h"
 
 /**
- * h_exit - function that terminate the program when user types "exit".
+ * h_exit - function that delet new line and
+ * terminate the program when user types "exit".
+ * and print env when user type "env"
  *
  * @command: the string to be read.
- *
- * Return: nothing.
+ * @getcheck: the getline return
+ * Return: command without the '\n'
  *
  */
-void h_exit(char *command)
+char *h_exit(char *command, int getcheck)
 {
-	if (_strcmp("exit", command) == 0)
+	int len;
+
+	if (command != NULL)
 	{
-		free(command);
-		exit(EXIT_SUCCESS);
+		if (_strcmp("exit\n", command) == 0 || getcheck == -1)
+		{
+			free(command);
+			exit(EXIT_SUCCESS);
+		}
+		else
+		{
+			len = _strlen(command);
+			command[len - 1] = '\0';
+		}
 	}
+return (command);
 }

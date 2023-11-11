@@ -9,10 +9,8 @@
 
 char **token_it(char *str, char *del)
 {
-	char **token = NULL;
-	char *tok = NULL;
-	int j, i = 0;
-	char *cpy = _strdup(str);
+	char **token = NULL, *tok = NULL, *cpy = _strdup(str);
+	int i = 0;
 
 	if (str == NULL || del == NULL)
 	{
@@ -52,4 +50,3 @@ char **token_it(char *str, char *del)
 	free(cpy);
 	return (token);
 }
-
