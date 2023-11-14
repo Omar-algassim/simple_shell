@@ -10,7 +10,7 @@
 
 int main(int argc __attribute__ ((unused)), char **arg, char **env)
 {
-	char **cmd_path = NULL, *line = NULL;
+	char *line = NULL;
 	int getcheck, fd = 0;
 	size_t len = 0;
 
@@ -27,19 +27,21 @@ int main(int argc __attribute__ ((unused)), char **arg, char **env)
 			arg = token_it(line, " ");
 			if (arg != NULL && arg[0] != NULL)
 			{
-				if (arg[0][0] != '/')
-				{
-					cmd_path = path(arg);
-					if (cmd_path != NULL && cmd_path[0] != NULL)
-					{
-						execute(cmd_path, arg, env);
-						free_tok(cmd_path);
-					}
-				}
-				else
-					execute(arg, arg, env);
+				/**
+				* if (arg[0][0] != '/')
+				*	{
+				*		cmd_path = path(arg);
+				*		if (cmd_path != NULL && cmd_path[0] != NULL)
+				*		{
+				*			execute(cmd_path, arg, env);
+				*			free_tok(cmd_path);
+				*		}
+				*	}
+				*	else
+				*/
+				execute(arg, arg, env);
 			}
-			free_tok(arg);
+			 free_tok(arg);
 		}
 	}
 	free(line);

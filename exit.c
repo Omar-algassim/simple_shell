@@ -16,7 +16,7 @@ char *h_exit(char *command, int getcheck)
 
 	if (command != NULL)
 	{
-		if (_strcmp("exit\n", command) == 0 || getcheck == -1)
+		if (getcheck == -1)
 		{
 			free(command);
 			exit(EXIT_SUCCESS);
