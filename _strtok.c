@@ -2,7 +2,7 @@
 
 /**
  * test_del - Test If Char Match Any Char *.
- * @c: character to test
+ * @s: character to test
  * @str: string to test
  * Return: 1 succes, 0 Failed
 */
@@ -20,7 +20,8 @@ unsigned int test_del(char s, const char *str)
 }
 
 /**
- * _strtok - breaks string str into a series of tokens using the delimiter delim.
+ * _strtok - breaks string str into
+ * a series of tokens using the delimiter delim.
  * @str: string to tokenize
  * @delim: string delimit str
  * Return: pointer to the next token, null-pointer otherwise.
