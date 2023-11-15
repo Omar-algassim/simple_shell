@@ -4,7 +4,7 @@
  * h_exit - function that delet new line and
  * terminate the program when user types "exit".
  * and print env when user type "env"
- *
+ * @status: the exit status
  * @command: the string to be read.
  * @getcheck: the getline return
  * Return: command without the '\n'
