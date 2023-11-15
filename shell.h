@@ -16,7 +16,7 @@
 
 void _env(char **env);
 void free_tok(char **tok);
-int execute(char **path_cmd, char **arg, char **env);
+int execute(char **path_cmd, char **arg, char **env, int cmd_count);
 char **path(char **tok_line);
 char **token_it(char *str, char *del);
 char *get_line(void);
@@ -29,7 +29,7 @@ char *_strdup(const char *str);
 char *_strchr(const char *s, int c);
 unsigned int _strspn(char *s, char *accept);
 size_t _strcspn(const char *s1, const char *s2);
-char *h_exit(char *command, int getcheck);
+char *h_exit(char *command, int getcheck, int status);
 char *_strtok(char *str, const char *delim);
 unsigned int test_del(char s, const char *str);
 

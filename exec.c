@@ -5,15 +5,15 @@
  * @path_cmd: the path of file should execute
  * @arg: the whole line of command
  * @env: the eniroment varuable
+ * @cmd_count: the number of command
  * Return: 0 if success
  */
 
 int execute(char **path_cmd, char **arg, char **env, int cmd_count)
 {
 	pid_t pid;
-	int acc, exe, status, i = 0;
+	int acc, exe, status, exit_status, i = 0;
 	char *cmd = NULL;
-	int exit_status;
 
 	while (path_cmd[i] != NULL)
 	{
@@ -29,7 +29,6 @@ int execute(char **path_cmd, char **arg, char **env, int cmd_count)
 	if (acc == -1)
 	{
 		free(cmd);
-		write(STDERR_FILENO, &cmd_count, sizeof(int));
 		perror(arg[0]);
 	}
 	if (acc == 0)
@@ -48,10 +47,8 @@ int execute(char **path_cmd, char **arg, char **env, int cmd_count)
 			}
 		}
 		waitpid(pid, &status, 0);
-	       	if (WIFEXITED(status)) 
-		 {
-			 exit_status = WEXITSTATUS(status);
-		 }
+		if (WIFEXITED(status))
+			exit_status = WEXITSTATUS(status);
 	}
 return (exit_status);
 }

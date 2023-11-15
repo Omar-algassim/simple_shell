@@ -28,21 +28,19 @@ int main(int argc __attribute__ ((unused)), char **arg, char **env)
 			arg = token_it(line, " ");
 			if (arg != NULL && arg[0] != NULL)
 			{
-
-				 if (arg[0][0] != '/')
+				if (arg[0][0] != '/')
+				{
+					cmd_path = path(arg);
+					if (cmd_path != NULL && cmd_path[0] != NULL)
 					{
-						cmd_path = path(arg);
-						if (cmd_path != NULL && cmd_path[0] != NULL)
-						{
-							status = execute(cmd_path, arg, env, cmd_count);
-							free_tok(cmd_path);
-						}
+						status = execute(cmd_path, arg, env, cmd_count);
+						free_tok(cmd_path);
 					}
-					else
-				
-				status = execute(arg, arg, env, cmd_count);
+				}
+				else
+					status = execute(arg, arg, env, cmd_count);
 			}
-			 free_tok(arg);
+			free_tok(arg);
 		}
 	}
 	free(line);
