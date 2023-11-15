@@ -29,7 +29,7 @@ int execute(char **path_cmd, char **arg, char **env, int cmd_count)
 	if (acc == -1)
 	{
 		free(cmd);
-		perror(arg[0]);
+		dprintf(STDERR_FILENO, "./hsh: %d: %s: not found\n", cmd_count, arg[0]);
 	}
 	if (acc == 0)
 	{
