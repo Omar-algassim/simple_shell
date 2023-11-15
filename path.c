@@ -16,7 +16,9 @@ char **path(char **tok_line)
 	if (tok_line[0][0] != '/')
 	{
 		all_path = _strdup(getenv("PATH"));
-		tok_path = token_it(all_path, ":");
+		if (all_path == NULL)
+			return (NULL);
+		tok_path = token_it(all_path, ":\n\t");
 		free(all_path);
 		if (tok_path == NULL)
 			return (NULL);

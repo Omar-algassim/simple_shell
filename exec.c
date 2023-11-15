@@ -12,22 +12,15 @@
 int execute(char **path_cmd, char **arg, char **env, int cmd_count)
 {
 	pid_t pid;
-	int acc, exe, status, exit_status, i = 0;
+	int acc, exe, status, exit_status;
 	char *cmd = NULL;
 
-	while (path_cmd[i] != NULL)
-	{
-		acc = access(path_cmd[i], X_OK);
-		if (acc == 0)
-		{
-			cmd = path_cmd[i];
-		}
-		i++;
-	}
-	if (cmd != NULL)
+	cmd = _access(path_cmd);
+
 		acc = access(cmd, X_OK);
-	if (acc == -1)
+	if (acc == -1 || cmd == NULL)
 	{
+		exit_status = 127;
 		free(cmd);
 		dprintf(STDERR_FILENO, "./hsh: %d: %s: not found\n", cmd_count, arg[0]);
 	}

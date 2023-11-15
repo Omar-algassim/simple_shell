@@ -14,6 +14,7 @@
 #include <linux/limits.h>
 /*prototype*/
 
+char *_access(char **path_cmd);
 void _env(char **env);
 void free_tok(char **tok);
 int execute(char **path_cmd, char **arg, char **env, int cmd_count);
