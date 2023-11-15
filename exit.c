@@ -10,7 +10,7 @@
  * Return: command without the '\n'
  *
  */
-char *h_exit(char *command, int getcheck)
+char *h_exit(char *command, int getcheck, int status)
 {
 	int len;
 
@@ -19,12 +19,17 @@ char *h_exit(char *command, int getcheck)
 		if (getcheck == -1)
 		{
 			free(command);
-			exit(EXIT_SUCCESS);
+			exit(status);
 		}
 		else
 		{
 			len = _strlen(command);
 			command[len - 1] = '\0';
+		}
+		if (_strcmp(command, "exit") == 0)
+		{
+			free(command);
+			exit(status);
 		}
 	}
 return (command);

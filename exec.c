@@ -8,16 +8,16 @@
  * Return: 0 if success
  */
 
-int execute(char **path_cmd, char **arg, char **env)
+int execute(char **path_cmd, char **arg, char **env, int cmd_count)
 {
 	pid_t pid;
 	int acc, exe, status, i = 0;
 	char *cmd = NULL;
-
+	int exit_status;
 
 	while (path_cmd[i] != NULL)
 	{
-		acc = access(path_cmd[i], F_OK);
+		acc = access(path_cmd[i], X_OK);
 		if (acc == 0)
 		{
 			cmd = path_cmd[i];
@@ -25,10 +25,11 @@ int execute(char **path_cmd, char **arg, char **env)
 		i++;
 	}
 	if (cmd != NULL)
-		acc = access(cmd, F_OK);
+		acc = access(cmd, X_OK);
 	if (acc == -1)
 	{
 		free(cmd);
+		write(STDERR_FILENO, &cmd_count, sizeof(int));
 		perror(arg[0]);
 	}
 	if (acc == 0)
@@ -47,6 +48,11 @@ int execute(char **path_cmd, char **arg, char **env)
 			}
 		}
 		waitpid(pid, &status, 0);
+	       	if (WIFEXITED(status)) 
+		 {
+			 exit_status = WEXITSTATUS(status);
+		 }
 	}
-	return (0);
+return (exit_status);
 }
+
