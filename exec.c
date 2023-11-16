@@ -16,8 +16,9 @@ int execute(char **path_cmd, char **arg, char **env, int cmd_count)
 	char *cmd = NULL;
 
 	cmd = _access(path_cmd);
-
+	if (cmd != NULL)
 		acc = access(cmd, X_OK);
+
 	if (acc == -1 || cmd == NULL)
 	{
 		exit_status = 127;

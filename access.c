@@ -12,6 +12,9 @@ char *_access(char **path_cmd)
 	int i = 0;
 	int acc;
 
+	if (path_cmd == NULL)
+		return (NULL);
+
 	while (path_cmd[i] != NULL)
 	{
 		acc = access(path_cmd[i], F_OK);

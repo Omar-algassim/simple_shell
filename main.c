@@ -37,7 +37,10 @@ int main(int argc __attribute__ ((unused)), char **arg, char **env)
 						free_tok(cmd_path);
 					}
 					else
+					{
 						status = execute(cmd_path, arg, env, cmd_count);
+						free_tok(cmd_path);
+					}
 				}
 				else
 					status = execute(arg, arg, env, cmd_count);
