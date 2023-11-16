@@ -39,7 +39,6 @@ int main(int argc __attribute__ ((unused)), char **arg, char **env)
 					else
 					{
 						status = execute(cmd_path, arg, env, cmd_count);
-						free_tok(cmd_path);
 					}
 				}
 				else

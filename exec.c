@@ -12,7 +12,7 @@
 int execute(char **path_cmd, char **arg, char **env, int cmd_count)
 {
 	pid_t pid;
-	int acc, exe, status, exit_status;
+	int acc = -1, exe, status, exit_status;
 	char *cmd = NULL;
 
 	cmd = _access(path_cmd);
